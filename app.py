@@ -12,7 +12,7 @@ logging.getLogger('streamlit.runtime.scriptrunner').setLevel(logging.ERROR)
 
 @st.cache_resource
 def load_model():
-    model = joblib.load('best_model.pkl')
+    model = joblib.load('/Users/verakabanova/foldeer_name/mapll-2/best_model.pkl')
     return model
 
 model = load_model()
@@ -93,4 +93,21 @@ if submitted:
         st.success("Низкий риск ❤️")
 
 
+import sys
+print("Python path:", sys.executable)
+print("System path:", sys.path)
 
+try:
+    import joblib
+    print("Joblib successfully imported")
+    print("Joblib location:", joblib.__file__)
+except ImportError as e:
+    print("Joblib import failed:", e)
+
+
+import joblib
+import sys
+sys.modules['sklearn.externals.joblib'] = joblib
+
+import sklearn_externals_joblib  # Add this line
+model = joblib.load('best_model.pkl')
